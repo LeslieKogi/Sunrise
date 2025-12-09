@@ -1,34 +1,55 @@
+import { Mail, Phone, Facebook } from 'lucide-react';
+import logo from '../assets/sunrise images/sunriselogo.jpg';
 
 function Footer() {
   return (
-<footer class="bg-neutral-primary-soft rounded-base shadow-xs border border-default m-4">
-    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <a href="https://flowbite.com/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                <img src="https://flowbite.com/docs/images/logo.svg" class="h-7" alt="Flowbite Logo" />
-                <span class="text-heading self-center text-2xl font-semibold whitespace-nowrap">Flowbite</span>
+    <footer className=" bg-sunriseYellow border-t-2 border-pink-400 mt-auto">
+      <div className="w-full max-w-screen-xl mx-auto p-6 md:py-8">
+        <div className="sm:flex sm:items-center sm:justify-between">
+          {/* Logo */}
+          <div className="flex items-center mb-6 sm:mb-0">
+            
+          </div>
+
+          {/* Contact Information */}
+          <div className="flex flex-col gap-3 text-gray-700">
+            {/* Email */}
+            <h4  
+              className="flex items-center gap-2 hover:text-pink-500 transition-colors"
+            >
+              <Mail className="w-5 h-5" />
+              <span>sunrisecreameries@gmail.com</span>
+            </h4>
+
+            {/* Phone */}
+            <h4 
+              className="flex items-center gap-2 hover:text-pink-500 transition-colors"
+            >
+              <Phone className="w-5 h-5" />
+              <span>0702 126007</span>
+            </h4>
+
+            {/* Facebook */}
+            <a 
+              href="https://www.facebook.com/share/17YZ47ebvm/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-pink-500 transition-colors"
+            >
+              <Facebook className="w-5 h-5" />
+              <span>Follow us on Facebook</span>
             </a>
-            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-body sm:mb-0">
-                <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">About</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline">Contact</a>
-                </li>
-            </ul>
+          </div>
         </div>
-        <hr class="my-6 border-default sm:mx-auto lg:my-8" />
-        <span class="block text-sm text-body sm:text-center">© 2023 <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All Rights Reserved.</span>
-    </div>
-</footer>
 
+        <hr className="my-6 border-black" />
 
+        {/* Copyright */}
+        <div className="text-center text-sm text-gray-600">
+          <p>© {new Date().getFullYear()} Sunrise Creameries. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
   );
 }
 

@@ -8,6 +8,7 @@ const config = {
     extend: {
       colors: {
         sunrisePink: "rgb(217,46,150)",
+        sunriseYellow:"rgb(255, 231, 69)",
       },
     },
   },
