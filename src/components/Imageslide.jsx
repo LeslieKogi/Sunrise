@@ -1,26 +1,37 @@
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+// Import images from assets folder
+import kids2 from '../assets/sunrise images/kids2.jpg';
+import kids3 from '../assets/sunrise images/kids3.jpg';
+import kids4 from '../assets/sunrise images/kids4.jpg';
+import model1 from '../assets/sunrise images/model1.jpg';
+import models2 from '../assets/sunrise images/models2.jpg';
+
 function ImageSlide() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Replace these with your actual yogurt product images
+  // Your actual yogurt product images
   const images = [
     {
-      url: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800&h=600&fit=crop',
-      alt: 'Fresh Strawberry Yogurt'
+      url: kids3,
+      alt: 'Kids enjoying Sunrise Yogurt'
     },
     {
-      url: 'https://images.unsplash.com/photo-1571212515416-26b6d6c11943?w=800&h=600&fit=crop',
-      alt: 'Blueberry Yogurt Bowl'
+      url: kids2,
+      alt: 'Happy children with yogurt'
     },
     {
-      url: 'https://images.unsplash.com/photo-1628088062854-d1870b4553da?w=800&h=600&fit=crop',
-      alt: 'Greek Yogurt with Honey'
+      url: kids4,
+      alt: 'Delicious yogurt for all'
     },
     {
-      url: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=800&h=600&fit=crop',
-      alt: 'Mixed Berry Yogurt'
+      url: model1,
+      alt: ''
+    },
+    {
+      url: models2,
+      alt: 'Happy kids with Sunrise Yogurt'
     }
   ];
 
