@@ -8,8 +8,8 @@ function Home() {
       
       {/* Rest of your homepage content */}
       <section className="container mx-auto px-4 py-16">
-        <h1 className="text-4xl font-bold text-center mb-8">
-          Welcome to Our Yogurt Store
+        <h1 className="text-4xl font-bold text-center mb-8 text-sunrisePink">
+          Welcome to Sunrise Creameries 
         </h1>
         <p className="text-center text-gray-600 max-w-2xl mx-auto">
           Discover our delicious range of premium yogurt products, 
