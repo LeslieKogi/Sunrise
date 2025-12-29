@@ -166,7 +166,7 @@ function Contact() {
                     <h3 className="font-semibold text-gray-800 mb-1">Location</h3>
                     <p className="text-gray-600">
                       Nairobi, Kenya<br />
-                      (Update with actual address)
+                      (address)
                     </p>
                   </div>
                 </div>
@@ -199,11 +199,11 @@ function Contact() {
               <div className="space-y-2 text-gray-600">
                 <div className="flex justify-between">
                   <span>Monday - Friday</span>
-                  <span className="font-medium">8:00 AM - 6:00 PM</span>
+                  <span className="font-medium">8:00 AM - 5:00 PM</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Saturday</span>
-                  <span className="font-medium">9:00 AM - 4:00 PM</span>
+                  <span className="font-medium">9:00 AM - 12:00 PM</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Sunday</span>

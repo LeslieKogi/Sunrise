@@ -26,7 +26,7 @@ function About() {
           {/* Optional: Stats or Features */}
           <div className="grid grid-cols-2 gap-4 pt-6">
             <div className="bg-pink-50 p-4 rounded-lg">
-              <p className="text-3xl font-bold text-pink-500">14+</p>
+              <p className="text-3xl font-bold text-pink-500">10</p>
               <p className="text-gray-600">Years of Excellence</p>
             </div>
           </div>
