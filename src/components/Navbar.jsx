@@ -53,6 +53,12 @@ function Navbar() {
             >
               Contact
             </Link>
+            <Link 
+            to="/orders"
+            className="text-gray-700 hover:text-pink-500 transition-colors font-medium"
+            >
+             Cart
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -97,6 +103,16 @@ function Navbar() {
               >
                 Contact
               </Link>
+              <Link 
+                to="/orders" 
+                onClick={closeMenu}
+                className="text-gray-700 hover:text-pink-500 transition-colors font-medium px-2 py-2"
+              >
+                Cart
+              </Link>
+
+
+
             </div>
           </div>
         )}
