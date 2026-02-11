@@ -9,6 +9,9 @@ function Contact() {
     message: ''
   });
 
+  // Your WhatsApp number (include country code, no + or spaces)
+  const WHATSAPP_NUMBER = '254114093651'; 
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -18,9 +21,37 @@ function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // This will later connect to your backend/email service
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! We will get back to you soon.');
+    
+    // Validate form
+    if (!formData.name || !formData.email || !formData.message) {
+      alert('Please fill in all required fields');
+      return;
+    }
+
+    // Create WhatsApp message
+    const whatsappMessage = `
+*New Contact Form Submission*
+
+*Name:* ${formData.name}
+*Email:* ${formData.email}
+*Phone:* ${formData.phone || 'Not provided'}
+
+*Message:*
+${formData.message}
+    `.trim();
+
+    // Encode message for URL
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+
+    // Create WhatsApp URL
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+    // Open WhatsApp in new tab
+    window.open(whatsappUrl, '_blank');
+
+    // Show success message
+    alert('Redirecting to WhatsApp...');
+
     // Reset form
     setFormData({ name: '', email: '', phone: '', message: '' });
   };
@@ -42,11 +73,11 @@ function Contact() {
               Send Us a Message
             </h2>
             
-            <div className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5">
               {/* Name */}
               <div>
                 <label className="block text-gray-700 font-medium mb-2">
-                  Your Name
+                  Your Name *
                 </label>
                 <input
                   type="text"
@@ -62,7 +93,7 @@ function Contact() {
               {/* Email */}
               <div>
                 <label className="block text-gray-700 font-medium mb-2">
-                  Email Address
+                  Email Address *
                 </label>
                 <input
                   type="email"
@@ -93,7 +124,7 @@ function Contact() {
               {/* Message */}
               <div>
                 <label className="block text-gray-700 font-medium mb-2">
-                  Your Message
+                  Your Message *
                 </label>
                 <textarea
                   name="message"
@@ -108,13 +139,13 @@ function Contact() {
 
               {/* Submit Button */}
               <button
-                onClick={handleSubmit}
+                type="submit"
                 className="w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
               >
                 <Send className="w-5 h-5" />
-                Send Message
+                Send via WhatsApp
               </button>
-            </div>
+            </form>
           </div>
 
           {/* Right Side - Contact Information */}
@@ -141,15 +172,17 @@ function Contact() {
                   </div>
                 </div>
 
-                {/* Phone */}
+                {/* Phone / WhatsApp */}
                 <div className="flex items-start gap-4">
                   <div className="bg-pink-500 p-3 rounded-lg">
                     <Phone className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-800 mb-1">Phone</h3>
+                    <h3 className="font-semibold text-gray-800 mb-1">WhatsApp</h3>
                     <a 
-                      href="tel:+254712345678"
+                      href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-gray-600 hover:text-pink-500 transition-colors"
                     >
                       +254 712 345 678
@@ -165,8 +198,8 @@ function Contact() {
                   <div>
                     <h3 className="font-semibold text-gray-800 mb-1">Location</h3>
                     <p className="text-gray-600">
-                      Nairobi, Kenya<br />
-                      (address)
+                      Ruiru, Kiambu County<br />
+                      Kenya
                     </p>
                   </div>
                 </div>
@@ -191,7 +224,7 @@ function Contact() {
               </div>
             </div>
 
-            {/* Business Hours (Optional) */}
+            {/* Business Hours */}
             <div className="bg-white rounded-2xl shadow-lg p-8">
               <h3 className="text-xl font-bold text-gray-800 mb-4">
                 Business Hours
