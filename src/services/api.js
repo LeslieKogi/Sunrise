@@ -1,7 +1,16 @@
 const API_BASE_URL = 'http://127.0.0.1:5555/api';
 
+// Helper function to get auth headers with JWT token
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('adminToken');
+  return {
+    'Content-Type': 'application/json',
+    ...(token && { 'Authorization': `Bearer ${token}` }),
+  };
+};
+
 export const api = {
-  // ========== PUBLIC ROUTES ==========
+  // ========== PUBLIC ROUTES (no auth needed) ==========
   
   // Get all available flavours (for customers)
   getFlavours: async () => {
@@ -55,12 +64,14 @@ export const api = {
     }
   },
 
-  // ========== ADMIN ROUTES ==========
+  // ========== ADMIN ROUTES (require JWT token) ==========
 
   // ADMIN: Get all orders
   getAllOrders: async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/orders`);
+      const response = await fetch(`${API_BASE_URL}/orders`, {
+        headers: getAuthHeaders(),  // ← Now includes JWT token
+      });
       if (!response.ok) {
         throw new Error('Failed to fetch orders');
       }
@@ -76,9 +87,7 @@ export const api = {
     try {
       const response = await fetch(`${API_BASE_URL}/orders/${orderId}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: getAuthHeaders(),  // ← Now includes JWT token
         body: JSON.stringify(updateData),
       });
       
@@ -98,10 +107,10 @@ export const api = {
   // ADMIN: Get all flavours (including unavailable ones)
   getAllFlavours: async () => {
     try {
-      // Try to get ALL flavours from /flavours/all endpoint
-      const response = await fetch(`${API_BASE_URL}/flavours/all`);
+      const response = await fetch(`${API_BASE_URL}/flavours/all`, {
+        headers: getAuthHeaders(),  // ← Now includes JWT token
+      });
       if (!response.ok) {
-        // Fallback to regular flavours endpoint if /all doesn't exist
         const fallbackResponse = await fetch(`${API_BASE_URL}/flavours`);
         return await fallbackResponse.json();
       }
@@ -117,9 +126,7 @@ export const api = {
     try {
       const response = await fetch(`${API_BASE_URL}/flavours`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: getAuthHeaders(),  // ← Now includes JWT token
         body: JSON.stringify(flavourData),
       });
       
@@ -141,9 +148,7 @@ export const api = {
     try {
       const response = await fetch(`${API_BASE_URL}/flavours/${flavourId}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: getAuthHeaders(),  // ← Now includes JWT token
         body: JSON.stringify(flavourData),
       });
       
@@ -165,6 +170,7 @@ export const api = {
     try {
       const response = await fetch(`${API_BASE_URL}/flavours/${flavourId}`, {
         method: 'DELETE',
+        headers: getAuthHeaders(),  // ← Now includes JWT token
       });
       
       const data = await response.json();
@@ -183,7 +189,9 @@ export const api = {
   // ADMIN: Get dashboard stats
   getStats: async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/stats`);
+      const response = await fetch(`${API_BASE_URL}/stats`, {
+        headers: getAuthHeaders(),  // ← Now includes JWT token
+      });
       if (!response.ok) {
         throw new Error('Failed to fetch stats');
       }

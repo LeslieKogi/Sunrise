@@ -1,17 +1,20 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';  // ← Add this import
 import { 
   Package, 
   ShoppingBag, 
   DollarSign, 
   TrendingUp,
-  RefreshCw
+  RefreshCw,
+  LogOut  // ← Add this import
 } from 'lucide-react';
 import { api } from '../services/api';
 import OrdersManagement from '../components/admin/OrdersManagement';
 import FlavoursManagement from '../components/admin/FlavoursManagement';
 
 function Admin() {
-  const [activeTab, setActiveTab] = useState('overview'); // overview, orders, flavours
+  const navigate = useNavigate();  // ← Add this
+  const [activeTab, setActiveTab] = useState('overview');
   const [stats, setStats] = useState({
     total_orders: 0,
     pending_orders: 0,
@@ -20,10 +23,17 @@ function Admin() {
   });
   const [loading, setLoading] = useState(true);
 
-  // Fetch stats
+  // Check authentication and fetch stats
   useEffect(() => {
+    const token = localStorage.getItem('adminToken');  // ← Check for JWT token
+    
+    if (!token) {
+      navigate('/admin/login');  // ← Redirect to login if no token
+      return;
+    }
+    
     fetchStats();
-  }, []);
+  }, [navigate]);
 
   const fetchStats = async () => {
     try {
@@ -32,9 +42,22 @@ function Admin() {
       setStats(data);
     } catch (error) {
       console.error('Error fetching stats:', error);
+      // If unauthorized (401), redirect to login
+      if (error.message.includes('401') || error.message.includes('Unauthorized')) {
+        localStorage.removeItem('adminToken');
+        localStorage.removeItem('adminUsername');
+        navigate('/admin/login');
+      }
     } finally {
       setLoading(false);
     }
+  };
+
+  // ← Add logout function
+  const handleLogout = () => {
+    localStorage.removeItem('adminToken');
+    localStorage.removeItem('adminUsername');
+    navigate('/admin/login');
   };
 
   return (
@@ -42,8 +65,20 @@ function Admin() {
       {/* Header */}
       <div className="bg-gradient-to-r from-pink-500 to-purple-500 text-white">
         <div className="container mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold mb-2">Admin Dashboard</h1>
-          <p className="text-pink-100">Manage your Sunrise Yogurt business</p>
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-3xl font-bold mb-2">Admin Dashboard</h1>
+              <p className="text-pink-100">Manage your Sunrise Yogurt business</p>
+            </div>
+            {/* ← Add logout button */}
+            <button
+              onClick={handleLogout}
+              className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+            >
+              <LogOut className="w-5 h-5" />
+              Logout
+            </button>
+          </div>
         </div>
       </div>
 
