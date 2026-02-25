@@ -24,7 +24,7 @@ function Contact() {
     
     // Validate form
     if (!formData.name || !formData.email || !formData.message) {
-      alert('Please fill in all required fields');
+      toast.info('Please fill in all required fields');
       return;
     }
 
@@ -50,7 +50,7 @@ ${formData.message}
     window.open(whatsappUrl, '_blank');
 
     // Show success message
-    alert('Redirecting to WhatsApp...');
+    toast.info('Redirecting to WhatsApp...');
 
     // Reset form
     setFormData({ name: '', email: '', phone: '', message: '' });

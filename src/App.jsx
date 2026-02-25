@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useAdminShortcut } from './utils/useAdminShortcut';  // ← Add this import
+import { ToastContainer } from 'react-toastify'; 
+import { useAdminShortcut } from './utils/useAdminShortcut';  
 import Navbar from './components/Navbar';
 import Promotions from './components/Promotions';
 import Footer from './components/Footer';
@@ -11,14 +12,14 @@ import Orders from './pages/Orders';
 import Admin from './pages/Admin';
 import AdminLogin from './pages/AdminLogin';
 
-// ← Create a wrapper component to use the hook inside BrowserRouter
+
 function AppContent() {
-  useAdminShortcut(); // ← Use the hook here
+  useAdminShortcut(); 
 
   return (
     <div className="flex flex-col min-h-screen">
       {/* Promotions banner - shows on all pages */}
-      <Promotions />
+      
       
       {/* Navbar - shows on all pages */}
       <Navbar />
@@ -38,6 +39,19 @@ function AppContent() {
       
       {/* Footer - shows on all pages */}
       <Footer />
+      
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

@@ -7,6 +7,7 @@ import kidsyog from '../assets/sunrise images/kidsyog.jpg';
 import parffe from '../assets/sunrise images/parffe.jpg';
 import pineappleyog from '../assets/sunrise images/pineappleyog.jpg';
 import coconutandstraw from '../assets/sunrise images/coconutandstraw.jpg';
+import { toast } from 'react-toastify';
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -99,7 +100,7 @@ function Products() {
     localStorage.setItem('cart', JSON.stringify(cart));
     
     // Show feedback
-    alert(`${product.name} added to cart!`);
+    toast.success(`${product.name} added to cart!`);
   };
 
   // Loading state
