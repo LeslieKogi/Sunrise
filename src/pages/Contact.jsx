@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Mail, Phone, MapPin, Facebook, Send } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 function Contact() {
   const [formData, setFormData] = useState({

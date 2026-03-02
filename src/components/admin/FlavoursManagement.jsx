@@ -8,6 +8,8 @@ import {
   Loader
 } from 'lucide-react';
 import { api } from '../../services/api';
+import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 function FlavoursManagement() {
   const [flavours, setFlavours] = useState([]);
@@ -34,7 +36,7 @@ function FlavoursManagement() {
       setFlavours(data);
     } catch (error) {
       console.error('Error fetching flavours:', error);
-      alert('Failed to load flavours');
+      toast.error('Failed to load flavours');
     } finally {
       setLoading(false);
     }
@@ -76,19 +78,19 @@ function FlavoursManagement() {
         price: parseFloat(formData.price),
         is_available: formData.is_available
       });
-      alert('Flavour updated successfully!');
+      toast.success('Flavour updated successfully!');
       setEditingId(null);
       fetchFlavours();
     } catch (error) {
       console.error('Error updating flavour:', error);
-      alert('Failed to update flavour');
+      toast.error('Failed to update flavour');
     }
   };
 
   const addNewFlavour = async () => {
     try {
       if (!formData.name || !formData.price) {
-        alert('Please fill in name and price');
+        toast.info('Please fill in name and price');
         return;
       }
 
@@ -99,7 +101,7 @@ function FlavoursManagement() {
         is_available: formData.is_available
       });
 
-      alert('Flavour added successfully!');
+      toast.success('Flavour added successfully!');
       setShowAddForm(false);
       setFormData({
         name: '',
@@ -110,24 +112,33 @@ function FlavoursManagement() {
       fetchFlavours();
     } catch (error) {
       console.error('Error adding flavour:', error);
-      alert(error.message || 'Failed to add flavour');
+      toast.error(error.message || 'Failed to add flavour');
     }
   };
 
   const deleteFlavour = async (flavourId, flavourName) => {
-    if (!window.confirm(`Are you sure you want to delete "${flavourName}"?`)) {
-      return;
-    }
+  const result = await Swal.fire({
+    title: 'Are you sure?',
+    text: `You are about to delete "${flavourName}"`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#ec4899',
+    cancelButtonColor: '#6b7280',
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'Cancel'
+  });
 
-    try {
-      await api.deleteFlavour(flavourId);
-      alert('Flavour deleted successfully!');
-      fetchFlavours();
-    } catch (error) {
-      console.error('Error deleting flavour:', error);
-      alert('Failed to delete flavour');
-    }
-  };
+  if (!result.isConfirmed) return;
+
+  try {
+    await api.deleteFlavour(flavourId);
+    toast.success('Flavour deleted successfully!');
+    fetchFlavours();
+  } catch (error) {
+    console.error('Error deleting flavour:', error);
+    toast.error(error.message || 'Failed to delete flavour'); // ⭐ key fix
+  }
+};
 
   if (loading) {
     return (

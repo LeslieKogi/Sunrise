@@ -165,26 +165,21 @@ export const api = {
     }
   },
 
-  // ADMIN: Delete flavour
-  deleteFlavour: async (flavourId) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/flavours/${flavourId}`, {
-        method: 'DELETE',
-        headers: getAuthHeaders(),  // ← Now includes JWT token
-      });
-      
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to delete flavour');
-      }
-      
-      return data;
-    } catch (error) {
-      console.error('Error deleting flavour:', error);
-      throw error;
-    }
-  },
+// ADMIN: Delete flavour
+deleteFlavour: async (flavourId) => {
+  const response = await fetch(`${API_BASE_URL}/flavours/${flavourId}`, {
+    method: 'DELETE',
+    headers: getAuthHeaders(),
+  });
+
+  const data = await response.json(); // ✅ parse ONCE
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Failed to delete flavour');
+  }
+
+  return data;
+},
 
   // ADMIN: Get dashboard stats
   getStats: async () => {

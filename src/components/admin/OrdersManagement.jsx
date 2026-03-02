@@ -9,6 +9,7 @@ import {
   Filter
 } from 'lucide-react';
 import { api } from '../../services/api';
+import { toast } from 'react-toastify';
 
 function OrdersManagement() {
   const [orders, setOrders] = useState([]);
@@ -29,7 +30,7 @@ function OrdersManagement() {
       setOrders(data);
     } catch (error) {
       console.error('Error fetching orders:', error);
-      alert('Failed to load orders');
+      toast.error('Failed to load orders');
     } finally {
       setLoading(false);
     }
@@ -42,14 +43,14 @@ function OrdersManagement() {
       setShowModal(true);
     } catch (error) {
       console.error('Error fetching order details:', error);
-      alert('Failed to load order details');
+      toast.error('Failed to load order details');
     }
   };
 
   const updateOrderStatus = async (orderId, status) => {
     try {
       await api.updateOrderStatus(orderId, { order_status: status });
-      alert('Order status updated!');
+      toast.success('Order status updated!');
       fetchOrders(); // Refresh orders
       if (selectedOrder && selectedOrder.id === orderId) {
         // Refresh modal if it's the selected order
@@ -58,14 +59,14 @@ function OrdersManagement() {
       }
     } catch (error) {
       console.error('Error updating order:', error);
-      alert('Failed to update order status');
+      toast.error('Failed to update order status');
     }
   };
 
   const updatePaymentStatus = async (orderId, status) => {
     try {
       await api.updateOrderStatus(orderId, { payment_status: status });
-      alert('Payment status updated!');
+      toast.success('Payment status updated!');
       fetchOrders();
       if (selectedOrder && selectedOrder.id === orderId) {
         const updated = await api.getOrderByNumber(selectedOrder.order_number);
@@ -73,7 +74,7 @@ function OrdersManagement() {
       }
     } catch (error) {
       console.error('Error updating payment:', error);
-      alert('Failed to update payment status');
+      toast.error('Failed to update payment status');
     }
   };
 
