@@ -17,7 +17,7 @@ function AdminLogin() {
 
     try {
       // Direct fetch call here (not using api.js for login)
-      const response = await fetch('http://127.0.0.1:5555/api/admin/login', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/admin/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
