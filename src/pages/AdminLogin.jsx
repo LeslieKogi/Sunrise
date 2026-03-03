@@ -11,39 +11,41 @@ function AdminLogin() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
+  e.preventDefault();
+  setError('');
+  setLoading(true);
 
-    try {
-      // Direct fetch call here (not using api.js for login)
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/admin/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
+  const API_URL = import.meta.env.VITE_API_URL || 'https://sunrise-backend-t1xj.onrender.com/api'; 
 
-      const data = await response.json();
+  try {
+    // Direct fetch call here (not using api.js for login)
+    const response = await fetch(`${API_URL}/admin/login`, {  
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+    });
 
-      if (response.ok) {
-        // Store JWT token
-        localStorage.setItem('adminToken', data.access_token);
-        localStorage.setItem('adminUsername', username);
-        
-        // Redirect to admin dashboard
-        navigate('/admin/dashboard');
-      } else {
-        setError(data.error || 'Login failed. Please try again.');
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      setError('Network error. Please check your connection.');
-    } finally {
-      setLoading(false);
+    const data = await response.json();
+
+    if (response.ok) {
+      // Store JWT token
+      localStorage.setItem('adminToken', data.access_token);
+      localStorage.setItem('adminUsername', username);
+      
+      // Redirect to admin dashboard
+      navigate('/admin/dashboard');
+    } else {
+      setError(data.error || 'Login failed. Please try again.');
     }
-  };
+  } catch (error) {
+    console.error('Login error:', error);
+    setError('Network error. Please check your connection.');
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center px-4">
