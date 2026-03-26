@@ -1,16 +1,78 @@
-# React + Vite
+# 🌅 Sunrise E-Commerce
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sunrise is a full-stack e-commerce web application designed for selling yogurt products. It allows users to browse items, add them to a cart, and place orders, while providing an admin dashboard for managing products and viewing basic statistics.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## React Compiler
+### 👤 User Features
+- Browse available yogurt products
+- Add items to cart
+- Place orders
+- Contact the business directly via WhatsApp
+- Dedicated contact page for inquiries
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🔐 Admin Features
+- Hidden admin dashboard (accessible via keyboard shortcut: `admin`)
+- Add and manage products
+- View basic platform statistics
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+### Frontend
+- React (Vite)
+- Tailwind CSS
+- React Toastify
+- SweetAlert2
+
+### Backend
+- Python (Flask)
+
+---
+
+## ⚙️ How It Works
+
+1. Users browse products on the platform
+2. Items can be added to a cart
+3. Users place an order
+4. Users can contact the business directly via WhatsApp for follow-up or inquiries
+5. Admin manages products and monitors activity through a hidden dashboard
+
+---
+
+## ⚠️ Known Issues
+
+- Occasional slow loading times
+- Intermittent `404` errors on page reloads
+
+These are likely due to deployment on free-tier hosting services.
+
+---
+
+##  What I Learned
+
+- Building a full-stack application using React and Flask
+- Managing state and user interactions (cart functionality)
+- Handling client-server communication (APIs)
+- Creating protected/admin-only functionality
+- Debugging deployment issues (routing and hosting limitations)
+
+---
+
+## Future Improvements
+
+- Improve performance and reduce load times
+- Enhance UI/UX
+- Add payment integration
+
+
+## Backend Repo
+https://github.com/LeslieKogi/sunrise-backend.git  
+
+
+## Author
+
+Leslie Kogi : lesliekogi@gmail.com
